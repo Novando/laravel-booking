@@ -1,10 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::get('/', function () {
     Log::info('Welcome page visited');
     return view('welcome');
+});
+
+Route::get('/app', function () {
+    Log::info('Inertia Accessed');
+    return Inertia::render('HelloWorld');
 });
 
 Route::get('/info', function () {
