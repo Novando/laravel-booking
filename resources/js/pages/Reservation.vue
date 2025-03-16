@@ -13,6 +13,7 @@ const props = defineProps({
 const myDatepicker = ref(null);
 const dateValue = ref(null);
 const selectedProduct = ref('');
+const phone = ref('');
 const selectedTime = ref([]);
 const optionTime = ref([]);
 
@@ -89,6 +90,21 @@ function calculatePrice () {
         only: ['price'],
     });
 }
+
+function checkout () {
+    const payload = {
+        // _token: page.props.csrf_token,
+        phone: phone.value,
+        productId: selectedProduct.value,
+        date: dayjs(dateValue.value.getDate()).format('YYYY-MM-DD'),
+        sessions: selectedTime.value,
+    };
+    router.visit(`/checkout`, {
+        method: 'post',
+        data: payload,
+        preserveState: true,
+    });
+}
 </script>
 
 <template>
@@ -97,7 +113,7 @@ function calculatePrice () {
             <section class="px-4 flex flex-col items-center">
                 <fieldset class="fieldset mb-4">
                     <legend class="fieldset-legend">Masukan nomor HP kamu<span class="font-bold text-error">*</span></legend>
-                    <input type="text" class="input min-w-sm max-w-sm" placeholder="Nomor HP"/>
+                    <input v-model="phone" type="text" class="input min-w-sm max-w-sm" placeholder="Nomor HP"/>
                 </fieldset>
                 <fieldset class="fieldset mb-4">
                     <legend class="fieldset-legend">Produk yang akan kamu gunakan?<span class="font-bold text-error">*</span></legend>
@@ -131,7 +147,7 @@ function calculatePrice () {
             </section>
         </section>
         <section class="dock">
-            <button :class="price > 0 ? 'bg-primary' : 'border'" :disabled="!(price > 0)">
+            <button type="button" @click="checkout" :class="price > 0 ? 'bg-primary' : 'border'" :disabled="!(price > 0)">
                 <span class="dock-label">Checkout</span>
                 <p>Rp {{ Intl.NumberFormat('id-ID').format(price || 0) }}</p>
             </button>

@@ -36,8 +36,7 @@ return new class extends Migration
             id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
             customers_phone VARCHAR(20) NOT NULL,
             product_id UUID NOT NULL,
-            start_time TIMESTAMPTZ NOT NULL,
-            end_time TIMESTAMPTZ NOT NULL,
+            timetables TIMESTAMPTZ[] NOT NULL,
             created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
         )");
@@ -63,8 +62,7 @@ return new class extends Migration
             id CHAR(36) NOT NULL PRIMARY KEY,
             customers_phone VARCHAR(20) NOT NULL,
             product_id CHAR(36) NOT NULL,
-            start_time TIMESTAMP NOT NULL,
-            end_time TIMESTAMP NOT NULL,
+            timetables TEXT NOT NULL,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         )");
