@@ -17,4 +17,9 @@ interface ReservationRepositoryInterface
      * @return array<Carbon>
      */
     public static function getFilledTimetables(UuidInterface $productId, Carbon $time): array;
+
+    /**
+     * @param array<Carbon> $time
+     */
+    public static function fillTimetables(UuidInterface $productId, array $time): void;
 }
